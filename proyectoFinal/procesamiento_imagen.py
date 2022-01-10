@@ -32,10 +32,10 @@ def obtiene_nombres_archivos(ruta):
             return archivos_finales
 
 
-def procesa_imagenes(ruta, nombre_archivos, M, N, grado, tipo_imagen):
+def procesa_imagenes(ruta, nombre_archivos, tipo_imagen):
     imagenes = []
     for nombre in nombre_archivos:
-        imagenes.append(imagen.Imagen(ruta + "/" + nombre, M, N, grado, tipo_imagen))
+        imagenes.append(imagen.Imagen(ruta + "/" + nombre, tipo_imagen))
         
     return imagenes
 
