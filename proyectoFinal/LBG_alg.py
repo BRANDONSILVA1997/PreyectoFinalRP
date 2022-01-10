@@ -7,7 +7,7 @@ class LBG():
     def __init__(self, num_regiones=8):
         self.num_regiones = num_regiones
         
-        self._centroides = np.empty((num_regiones, 3))
+        self._centroides = np.empty((num_regiones, 3)) #Cambiar el ultimo valor para definir el numero de coordenadas del centroide
         self._indice_actual = 0
         
     

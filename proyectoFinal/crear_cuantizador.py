@@ -4,8 +4,8 @@ import procesamiento_imagen as pim
 import LBG_alg as lbg
 
 #Cambiar "nombre_cuantizador" y "ruta" segun el cuantizador que se este realizando y las imagenes que se usaran
-nombre_cuantizador = "blue_bowl" 
-ruta = "./blueBowl" 
+nombre_cuantizador = "apple_juice" 
+ruta = "./appleJuice" 
 
 #Las imagenes originales estan en formato BGR
 
@@ -14,7 +14,7 @@ if __name__ == '__main__':
     print(f"Se encontraron {len(nombres)} archivos:")
     for nombre in nombres:
         print(nombre)
-    imagenes = pim.procesa_imagenes(ruta, nombres, 64, 160, 8, 1)
+    imagenes = pim.procesa_imagenes(ruta, nombres, 2) #Cambiar el ultimo valor para escoger el formato de los pixeles
 
     pixeles_imagenes = []
     for i in range (len(imagenes)):
@@ -41,9 +41,16 @@ if __name__ == '__main__':
         centroides.append(aux)
 
     #Los centroides se guardan en un archivo .txt para usarlos despues para reconocer imagenes
-    archivo = open("cuantizadores.txt", "a")
+    #Cambiar el nombre del archivo segun el cuantizador que se este haciendo
+    archivo = open("cuantizadores_HSV.txt", "a")
 
     for centroide in centroides:
         archivo.write(nombre_cuantizador + " " + str(centroide) + " \n")
     archivo.close()  
 
+"""
+    correlaciones_imagenes = []
+    for i in range (len(imagenes)):
+        correlaciones_imagenes.append(imagenes[i].vectores_correlacion())
+    correlaciones_imagenes = np.concatenate(correlaciones_imagenes)
+"""

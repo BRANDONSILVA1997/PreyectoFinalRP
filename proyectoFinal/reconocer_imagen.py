@@ -3,20 +3,21 @@ import reconocimiento_patrones as rp
 import procesamiento_imagen as pim
 import LBG_alg as lbg
 
-#Cambiar "ruta" y "nombre" segun el grupo de imagenes que se quiere reconocer
-ruta = "./appleJuice_reconocer"
-grupo_imagenes = "appleJuice"
+#Cambiar "ruta", "num_imagenes_reconocidas" y "grupo_imagenes" segun el grupo de imagenes que se quiere reconocer
+ruta = "./appleJuice"
+grupo_imagenes = "appleJuice_HSV_15"
+num_imagenes_reconocidas = 15
 #Se crean las clases que permiten manipular las imagenes que se reconoceran
 if __name__ == '__main__':
     nombres = pim.obtiene_nombres_archivos(ruta)
     print(f"Se encontraron {len(nombres)} archivos:")
     for nombre in nombres:
         print(nombre)
-    imagenes = pim.procesa_imagenes(ruta, nombres, 64, 160, 8, 1)
+    imagenes = pim.procesa_imagenes(ruta, nombres, 2) #Cambiar el ultimo valor para escoger el formato de los pixeles
 
 #Se obtienen los centroides de los 10 cuantizadores a partir de un archivo .txt y se almacenan en una lista
     cuantizadores = [[],[],[],[],[],[],[],[],[],[]]
-    archivo = open("cuantizadores.txt", "r")
+    archivo = open("cuantizadores_HSV.txt", "r") #Cambiar el nombre del archivo segun las imagenes que se reconoceran
     for linea in archivo: #Cada linea tiene el nombre del cuantizador y un centroide
         linea = linea.rstrip("\\n")
         #Se revisa de que cuantizador es cada linea y se asigna a la sublista que le corresponde
@@ -78,7 +79,7 @@ if __name__ == '__main__':
     num_imagen = 0
     for imagen in imagenes:
         distancias_totales_minimas = []
-        for cuantizador in cuantizadores_f: #cambiar a cuantizadores_float al terminar de probar un solo cuantizador
+        for cuantizador in cuantizadores_float: #cambiar a cuantizadores_float al terminar de probar un solo cuantizador
             distancia_total_minima = 0
             for pixel in imagen.imagen:
                 distancias_a_centroides = []
@@ -102,7 +103,6 @@ if __name__ == '__main__':
 
 
     #Se crea la matriz de confusion
-    num_imagenes_reconocidas = 5
     num_cuantizadores = 10
     matriz_confusion = np.zeros([num_imagenes_reconocidas, num_cuantizadores])
     for i in range(0, len(imagenes_reconocidas)):
